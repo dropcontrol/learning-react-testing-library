@@ -48,13 +48,8 @@ describe('Search', () => {
       </Search>, container
     );
 
-    await act(async () => await userEvent.type(screen.getByRole('textbox'), 'JavaScript'))
-    // await userEvent.type(screen.getByRole('textbox'), 'JavaScript');
-    await waitFor(() => expect(onChange).toHaveBeenCalledTimes(10));
-    // screen.debug();
-    // console.log(screen.getByRole('textbox'));
-
-    // expect(onChange).toHaveBeenCalledTimes(10);
+    userEvent.type(screen.getByRole('textbox'), 'JavaScript');
+    expect(onChange).toHaveBeenCalledTimes(10);
   });
 });
 
