@@ -3,7 +3,7 @@ import axios from 'axios';
 import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
-import Search from './App';
+import { Search }  from './App';
 
 
 let container;
@@ -48,13 +48,8 @@ describe('Search', () => {
       </Search>, container
     );
 
-    await act(async () => await userEvent.type(screen.getByRole('textbox'), 'JavaScript'))
-    // await userEvent.type(screen.getByRole('textbox'), 'JavaScript');
-    await waitFor(() => expect(onChange).toHaveBeenCalledTimes(10));
-    // screen.debug();
-    // console.log(screen.getByRole('textbox'));
-
-    // expect(onChange).toHaveBeenCalledTimes(10);
+    userEvent.type(screen.getByRole('textbox'), 'JavaScript');
+    expect(onChange).toHaveBeenCalledTimes(10);
   });
 });
 
