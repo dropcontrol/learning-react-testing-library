@@ -1,9 +1,10 @@
 // https://qiita.com/ossan-engineer/items/4757d7457fafd44d2d2f
 // これをやっている。
 
-
-
+import { BrowserRouter, Route } from 'react-router-dom';
 import { useState, useEffect } from "react";
+
+import { App2 } from "./App2";
 
 function getUser() {
   return Promise.resolve({ id: '1', name: 'Robin' });
@@ -27,15 +28,22 @@ function App() {
   }
 
   return (
-    <div>
-      {user ? <p>Singed in as {user.name}</p> : null}
+    <BrowserRouter>
+      <Route exact path="/">
+        <div>
+          {user ? <p>Singed in as {user.name}</p> : null}
 
-      <Search value={search} onChange={handleChange}>
-        Search:
-      </Search>
+          <Search value={search} onChange={handleChange}>
+            Search:
+          </Search>
 
-      <p>Searches for {search ? search : '...'}</p>
-    </div>
+          <p>Searches for {search ? search : '...'}</p>
+        </div>
+      </Route>
+      <Route path="/app2">
+        <App2 />
+      </Route>
+    </BrowserRouter>
   );
 }
 
@@ -56,46 +64,3 @@ export function Search({ value, onChange, children }) {
 export default App;
 
 
-/*
-import { useState } from "react";
-import axios from 'axios';
-
-const URL = 'http://hn.algolia.com/api/v1/search';
-
-function App() {
-  const [stories, setStories] = useState([]);
-  const [error, setError] = useState(null);
-
-  async function handleFetch(event) {
-    let result;
-
-    try {
-      result = await axios.get(`${URL}?query=React`);
-
-      setStories(result.data.hits);
-    } catch (error) {
-      setError(error);
-    }
-  }
-
-  return (
-    <div>
-      <button type="button" onClick={handleFetch}>
-        Fetch Stories
-      </button>
-
-      {error && <span>Something went wrong ...</span>}
-
-      <ul>
-        {stories.map((story) => (
-          <li key={story.objectId}>
-            <a href={story.url}>{story.title}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default App;
-*/
