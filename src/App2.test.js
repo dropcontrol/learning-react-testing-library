@@ -13,21 +13,11 @@ describe('App2', () => {
             { objectId: '2', title: 'React' },
         ];
 
-        // axios.get.mockImplementationOnce(() =>
-        //     Promise.resolve({ data: { hits: stories } })
-        // )
-
         const promise = Promise.resolve({ data: { hits: stories } });
         axios.get.mockImplementationOnce(() => promise);
-
         render(<App2 />);
-
-        await userEvent.click(screen.getByRole('button'));
-
+        userEvent.click(screen.getByRole('button'));
         await act(() => promise);
-
-        // const items = await screen.findAllByRole('listitem');
-
         expect(screen.getAllByRole('listitem')).toHaveLength(2);
     });
 
