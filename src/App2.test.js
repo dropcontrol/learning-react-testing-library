@@ -21,18 +21,18 @@ describe('App2', () => {
         expect(screen.getAllByRole('listitem')).toHaveLength(2);
     });
 
-    // test('fetches stories from an API and fails', async () => {
-    //     axios.get.mockImplementationOnce(() =>
-    //         Promise.reject(new Error())
-    //     );
+    test('fetches stories from an API and fails', async () => {
+        axios.get.mockImplementationOnce(() =>
+            Promise.reject(new Error())
+        );
 
-    //     render(<App2 />);
+        render(<App2 />);
+        act(() => {
+            userEvent.click(screen.getByRole('button'));
+        });
 
-    //     await userEvent.click(screen.getByRole('button'));
-
-    //     const message = await screen.findByText(/Something went wrong/);
-
-    //     expect(message).toBeInTheDocument();
-    // });
+        const message = await screen.findByText(/Something went wrong/);
+        expect(message).toBeInTheDocument();
+    });
 });
 
